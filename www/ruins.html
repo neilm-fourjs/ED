@@ -1,0 +1,104 @@
+<html>
+	<head>
+		<title>Elite Dangerous - Guardians Ruins</title>
+		<meta charset="utf-8" />
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<link rel="shortcut icon" href="/ed/favicon.ico">
+		<script src="scripts/jquery-3.1.1.min.js"></script>
+		<script src="scripts/jquery.panzoom.js"></script>
+		<link href="ruins.css" rel="stylesheet" type="text/css">
+		<script src="ruins.js" type="text/javascript"></script>
+	</head>
+<body>
+
+<h1>Elite Dangerous - Guardians Ruins: 
+<div style="display: inline" id="location">?</div>
+<div style="display: inline" id="ruintype">?</div> </h1>
+
+<div id="container">
+
+<div class="flex-hbox" style="width: 100%;">
+
+<div id="leftPanel">
+<div id="gotPanel">
+<button id="save">Save</button>
+<button id="hide">Hide Saved Data</button>
+
+<div id="GotAlpha">
+<table>
+<tr><th>#</th><th>Bio</th><th>Cult</th><th>Hist</th><th>Lang</th><th>Tech</th></tr>
+<tr><th>1</th><td><input id="gotbio1" type="checkbox"></td><td><input id="gotcul1" type="checkbox"></td><td><input id="gothis1" type="checkbox"></td><td><input id="gotlan1" type="checkbox"></td><td><input id="gottec1" type="checkbox"></td></tr>
+<tr><th>2</th><td><input id="gotbio2" type="checkbox"></td><td><input id="gotcul2" type="checkbox"></td><td><input id="gothis2" type="checkbox"></td><td><input id="gotlan2" type="checkbox"></td><td><input id="gottec2" type="checkbox"></td></tr>
+<tr><th>3</th><td><input id="gotbio3" type="checkbox"></td><td><input id="gotcul3" type="checkbox"></td><td><input id="gothis3" type="checkbox"></td><td><input id="gotlan3" type="checkbox"></td><td><input id="gottec3" type="checkbox"></td></tr>
+<tr><th>4</th><td><input id="gotbio4" type="checkbox"></td><td><input id="gotcul4" type="checkbox"></td><td><input id="gothis4" type="checkbox"></td><td><input id="gotlan4" type="checkbox"></td><td><input id="gottec4" type="checkbox"></td></tr>
+<tr><th>5</th><td><input id="gotbio5" type="checkbox"></td><td><input id="gotcul5" type="checkbox"></td><td><input id="gothis5" type="checkbox"></td><td><input id="gotlan5" type="checkbox"></td><td><input id="gottec5" type="checkbox"></td></tr>
+<tr><th>6</th><td><input id="gotbio6" type="checkbox"></td><td><input id="gotcul6" type="checkbox"></td><td><input id="gothis6" type="checkbox"></td><td><input id="gotlan6" type="checkbox"></td><td><input id="gottec6" type="checkbox"></td></tr>
+<tr><th>7</th><td>                                   </td><td>                                    </td><td><input id="gothis7" type="checkbox"></td><td><input id="gotlan7" type="checkbox"></td><td>                                    </td></tr>
+</table>
+</div> <!-- alpha -->
+<div id="GotBeta">
+<table>
+<tr><th>#</th><th>Bio</th><th>Cult</th><th>Hist</th><th>Lang</th><th>Tech</th></tr>
+<tr><th>7</th><td><input id="gotbio7" type="checkbox"></td><td><input id="gotcul7" type="checkbox"></td><td>                                    </td><td>                                    </td><td><input id="gottec7" type="checkbox"></td></tr>
+<tr><th>8</th><td><input id="gotbio8" type="checkbox"></td><td><input id="gotcul8" type="checkbox"></td><td><input id="gothis8" type="checkbox"></td><td><input id="gotlan8" type="checkbox"></td><td><input id="gottec8" type="checkbox"></td></tr>
+<tr><th>9</th><td><input id="gotbio9" type="checkbox"></td><td><input id="gotcul9" type="checkbox"></td><td><input id="gothis9" type="checkbox"></td><td><input id="gotlan9" type="checkbox"></td><td><input id="gottec9" type="checkbox"></td></tr>
+<tr><th>10</th><td><input id="gotbio10" type="checkbox"></td><td><input id="gotcul10" type="checkbox"></td><td><input id="gothis10" type="checkbox"></td><td><input id="gotlan10" type="checkbox"></td><td><input id="gottec10" type="checkbox"></td></tr>
+<tr><th>11</th><td><input id="gotbio11" type="checkbox"></td><td><input id="gotcul11" type="checkbox"></td><td><input id="gothis11" type="checkbox"></td><td><input id="gotlan11" type="checkbox"></td><td><input id="gottec11" type="checkbox"></td></tr>
+<tr><th>12</th><td><input id="gotbio12" type="checkbox"></td><td><input id="gotcul12" type="checkbox"></td><td><input id="gothis12" type="checkbox"></td><td><input id="gotlan12" type="checkbox"></td><td><input id="gottec12" type="checkbox"></td></tr>
+<tr><th>13</th><td>                                    </td><td><input id="gotcul13" type="checkbox"></td><td><input id="gothis13" type="checkbox"></td><td><input id="gotlan13" type="checkbox"></td><td><input id="gottec13" type="checkbox"></td></tr>
+<tr><th>14</th><td>                                    </td><td>                                     </td><td><input id="gothis14" type="checkbox"></td><td><input id="gotlan14" type="checkbox"></td><td>                                     </td></tr>
+<tr><th>15</th><td>                                    </td><td>                                     </td><td><input id="gothis15" type="checkbox"></td><td>                                     </td><td>                                     </td></tr>
+<tr><th>16</th><td>                                    </td><td>                                     </td><td><input id="gothis16" type="checkbox"></td><td>                                     </td><td>                                     </td></tr>
+</table>
+</div> <!-- beta -->
+<div id="GotGamma">
+<table>
+<tr><th>#</th><th>Bio</th><th>Cult</th><th>Hist</th><th>Lang</th><th>Tech</th></tr>
+<tr><th>13</th><td><input id="gotbio13" type="checkbox"></td><td>                                     </td><td>                                     </td><td>                                     </td><td>                                     </td></tr>
+<tr><th>14</th><td><input id="gotbio14" type="checkbox"></td><td><input id="gotcul14" type="checkbox"></td><td>                                     </td><td>                                     </td><td><input id="gottec14" type="checkbox"></td></tr>
+<tr><th>15</th><td><input id="gotbio15" type="checkbox"></td><td><input id="gotcul15" type="checkbox"></td><td>                                     </td><td><input id="gotlan15" type="checkbox"></td><td><input id="gottec15" type="checkbox"></td></tr>
+<tr><th>16</th><td><input id="gotbio16" type="checkbox"></td><td><input id="gotcul16" type="checkbox"></td><td>                                     </td><td><input id="gotlan16" type="checkbox"></td><td><input id="gottec16" type="checkbox"></td></tr>
+<tr><th>17</th><td><input id="gotbio17" type="checkbox"></td><td><input id="gotcul17" type="checkbox"></td><td><input id="gothis17" type="checkbox"></td><td><input id="gotlan17" type="checkbox"></td><td><input id="gottec17" type="checkbox"></td></tr>
+<tr><th>18</th><td><input id="gotbio18" type="checkbox"></td><td><input id="gotcul18" type="checkbox"></td><td><input id="gothis18" type="checkbox"></td><td><input id="gotlan18" type="checkbox"></td><td><input id="gottec18" type="checkbox"></td></tr>
+<tr><th>19</th><td><input id="gotbio19" type="checkbox"></td><td><input id="gotcul19" type="checkbox"></td><td><input id="gothis19" type="checkbox"></td><td><input id="gotlan19" type="checkbox"></td><td><input id="gottec19" type="checkbox"></td></tr>
+<tr><th>20</th><td>                                    </td><td><input id="gotcul20" type="checkbox"></td><td><input id="gothis20" type="checkbox"></td><td><input id="gotlan20" type="checkbox"></td><td><input id="gottec20" type="checkbox"></td></tr>
+<tr><th>21</th><td>                                    </td><td>                                     </td><td><input id="gothis21" type="checkbox"></td><td><input id="gotlan21" type="checkbox"></td><td>                                     </td></tr>
+</table>
+</div> <!-- gamma -->
+</div> <!-- got panel -->
+<button id="show" style="display: none">Show Saved Data</button>
+
+<div id="data" class="uc data">
+data goes here
+</div> <!-- data -->
+</div> <!-- left panel -->
+
+<div id="maparea" style="width: 80%;">
+
+	<section id="focal">
+		<div class="buttons">
+			<button class="zoom-in">Zoom In</button>
+			<button class="zoom-out">Zoom Out</button>
+			<input id="xrange" type="range" class="zoom-range">
+			<button class="reset">Reset</button>
+			<label>Ruins #GS</label>
+			<input type="number" id="site" class="inp" value="44" placeholder="44">
+			<button id="setSite">Show Site</button>
+		</div>
+
+		<div class="parent">
+			<div class="panzoom" id="ruin-map">
+				Loading ...
+			</div>
+		</div>
+	</section>
+	
+	<textarea id="templog" style="height:500px; width:100%"></textarea>
+
+</div>
+
+</div> <!-- hbox -->
+</div> <!-- container end -->
+
+</body>
+</html>
