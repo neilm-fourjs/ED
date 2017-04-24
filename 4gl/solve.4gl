@@ -25,6 +25,7 @@ TYPE t_rd_rec RECORD
 TYPE t_r_rec RECORD
 		system_id INTEGER,
 		body_name VARCHAR(10),
+		bodyDistance INTEGER,
 		ruin_id INTEGER,
 		ruinTypeName CHAR(5),
 		coor_long DECIMAL(8,4),
@@ -46,6 +47,7 @@ MAIN
 		DISPLAY "Failed to connect to db:",l_db,"\n"||STATUS,"-",SQLERRMESSAGE
 		EXIT PROGRAM	
 	END TRY
+
 
 -- declare primary cursors
 	DECLARE obe_cur CURSOR FOR SELECT data FROM ruins_data WHERE ruin_id = ? AND data IS NOT NULL
@@ -70,6 +72,8 @@ MAIN
 	END FOR}
 
 	CALL solution.appendElement()
+
+--	CALL njm_got()
 
 -- process the ruins with data to find all 101 datascans
 	LET m_min_data = 6
@@ -207,5 +211,15 @@ FUNCTION proc_ruin( r_id )
 		END FOR
 	END IF
 
+END FUNCTION
+--------------------------------------------------------------------------------
+FUNCTION njm_got()
+	DEFINE c base.Channel
+	LET c = base.Channel.create()
+	CALL c.openFile("njm_got","r")
+	WHILE  NOT c.isEof()
+		LET solution[ 1 ].data[  solution[ 1 ].data.getLength() + 1 ] = c.readLine()
+	END WHILE
+	CALL c.close()
 END FUNCTION
 --------------------------------------------------------------------------------
