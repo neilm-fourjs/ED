@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Project defaultApplication="1940802807" gstVersion="30a02" version="3.2">
+<Project defaultApplication="18736" gstVersion="30a02" version="3.2">
   <Settings>
     <DynamicProperties version="2">
       <DynamicProperty description="Accent color (Android 5.0 and later)" initialValue="#9575CD" isDefaultInherited="false" isHidden="false" label="Accent color" name="gma-accent-color" readOnly="false" type="COLOR"/>
@@ -56,17 +56,19 @@
     <Library binaryName="Databases" id="1986" label="Databases"/>
     <Library binaryName="lib" id="605901058" label="lib">
       <File filePath="calc_dist.4gl"/>
+      <File filePath="db_connect.4gl"/>
     </Library>
     <Application binaryName="ruins" commandLineArguments="redoX" dependencies="605901058" id="801493264" label="ruins" targetDirectory="$(ProjectDir)">
       <File filePath="ruins.4gl"/>
     </Application>
     <Application binaryName="solve" dependencies="14000,1986,605901058" id="18736" label="solve" targetDirectory="$(ProjectDir)/">
       <File filePath="solve.4gl"/>
+      <File filePath="solve.per"/>
     </Application>
     <Application binaryName="Test" compilerOptions="-I &quot;$(GGCDIR)/libForGST&quot;" dependencies="605901058" id="36249064" label="Test" targetDirectory="$(ProjectDir)/test">
       <File filePath="test/test.4gl"/>
     </Application>
-    <Application binaryName="Test_dist" dependencies="605901058" id="1940802807" label="Test_dist">
+    <Application binaryName="Test_dist" dependencies="605901058" id="1940802807" label="Test_dist" targetDirectory="$(ProjectDir)">
       <File filePath="test/test_dist.4gl"/>
     </Application>
   </Group>

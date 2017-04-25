@@ -1,17 +1,10 @@
 
 IMPORT com
 IMPORT util
+IMPORT FGL db_connect
 
 MAIN
-	DEFINE l_db STRING
-
-	LET l_db = "ed+driver='dbmsqt',source='ed.db'"
-	TRY
-  	DATABASE l_db
-	CATCH
-		DISPLAY "Failed to connect to db:",l_db,"\n"||STATUS,"-",SQLERRMESSAGE
-		EXIT PROGRAM	
-	END TRY
+	CALL db_connect.db_con()
 
 	IF ARG_VAL(1) = "redo" THEN
 		IF fgl_winQuestion("Confirm",
@@ -184,7 +177,7 @@ FUNCTION load_systems()
 	DEFINE systems DYNAMIC ARRAY OF RECORD
 		id INTEGER,
 		name STRING,
-		distance_from_meeme INTEGER,
+		distance_from_gs1 INTEGER,
 		edsmCoordX DECIMAL(9,4),
 		edsmCoordY DECIMAL(9,4),
 		edsmCoordZ DECIMAL(9,4)
@@ -198,7 +191,7 @@ FUNCTION load_systems()
 	CREATE TABLE ruins_systems (
 		system_id INTEGER,
 		system_name VARCHAR(40),
-		distance_from_meeme INTEGER,
+		distance_from_gs1 INTEGER,
 		edsmCoordX DECIMAL(9,4),
 		edsmCoordY DECIMAL(9,4),
 		edsmCoordZ DECIMAL(9,4)
@@ -212,7 +205,7 @@ FUNCTION load_systems()
 
 	DISPLAY "Systems:",systems.getLength()
 	FOR x = 1 TO systems.getLength()
-		LET systems[x].distance_from_meeme = calc_distance(systems[x].edsmCoordX, systems[x].edsmCoordY, systems[x].edsmCoordY)
+		LET systems[x].distance_from_gs1 = calc_distance(systems[x].edsmCoordX, systems[x].edsmCoordY, systems[x].edsmCoordY, 1)
 		IF systems[x].name.getLength() > max_sys THEN LET max_sys = systems[x].name.getLength() END IF
 		INSERT INTO ruins_systems VALUES(systems[x].*)
 	END FOR
