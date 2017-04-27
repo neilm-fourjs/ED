@@ -3,6 +3,7 @@ IMPORT FGL calc_dist
 
 DEFINE solution DYNAMIC ARRAY OF RECORD
 		ruin DYNAMIC ARRAY OF RECORD
+			x SMALLINT,
 			r_id SMALLINT,
 			r_type STRING,
 			sys_name VARCHAR(60),
@@ -106,10 +107,11 @@ FUNCTION disp_results()
 	DISPLAY FORM solve
 	LET l_sys_cnt = 0
 	LET l_prev_loc = "."
+	CALL solution[ solution.getLength() ].ruin.sort("sys_name",FALSE)
 	FOR x = 1 TO solution[ solution.getLength() ].ruin.getLength()
 
 		CALL l_tab.appendElement()
-		LET l_tab[ l_tab.getLength() ].idx = x
+		LET l_tab[ l_tab.getLength() ].idx = solution[ solution.getLength() ].ruin[x].x
 		LET l_tab[ l_tab.getLength() ].sys = solution[ solution.getLength() ].ruin[x].sys_name
 		LET l_tab[ l_tab.getLength() ].sysd = solution[ solution.getLength() ].ruin[x].sys_distance_from_gs1
 		LET l_tab[ l_tab.getLength() ].body = solution[ solution.getLength() ].ruin[x].body_name
@@ -131,7 +133,7 @@ FUNCTION disp_results()
 	DIALOG ATTRIBUTE(UNBUFFERED)
 		DISPLAY ARRAY l_tab TO arr.*
 			BEFORE ROW
-				LET x = l_tab[ arr_curr() ].idx
+				LET x = arr_curr()
 				LET sd = solution[ solution.getLength() ].ruin[x].data
 				LET asd = solution[ solution.getLength() ].ruin[x].avail_data
 		END DISPLAY
@@ -248,6 +250,7 @@ FUNCTION proc_ruin( r_id, d_from_gs1, l_min_data, l_max_dist )
 	END FOR
 	LET r_cnt = r_cnt + 1
 	LET solution[ solution.getLength() ].ruin[ r_cnt ].r_id = r_id
+	LET solution[ solution.getLength() ].ruin[ r_cnt ].x = r_cnt
 	CALL l_data_arr.copyTo(solution[ solution.getLength() ].ruin[ r_cnt ].data )
 	CALL l_avail_data_arr.copyTo(solution[ solution.getLength() ].ruin[ r_cnt ].avail_data )
 	LET processed_ruins[processed_ruins.getLength()+1] = r_id
