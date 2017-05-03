@@ -52,8 +52,8 @@
   </Settings>
   <LanguageList version="1.0"/>
   <PlatformList version="1.0"/>
-  <Group label="Group" language="Genero">
-    <Library binaryName="Databases" id="1986" label="Databases"/>
+  <Group compilerOptions="-Dgenero310" label="Group" language="Genero">
+    <Library binaryName="Databases" compilerOptions="-DG310" id="1986" label="Databases"/>
     <Library binaryName="lib" id="605901058" label="lib">
       <File filePath="calc_dist.4gl"/>
       <File filePath="db_connect.4gl"/>
@@ -65,7 +65,7 @@
       <File filePath="solve.4gl"/>
       <File filePath="solve.per"/>
     </Application>
-    <Application binaryName="Test" compilerOptions="-I &quot;$(GGCDIR)/libForGST&quot;" dependencies="605901058" id="36249064" label="Test" targetDirectory="$(ProjectDir)/test">
+    <Application binaryName="Test" compilerOptions="" dependencies="605901058" id="36249064" label="Test" targetDirectory="$(ProjectDir)/test">
       <File filePath="test/test.4gl"/>
     </Application>
     <Application binaryName="Test_dist" dependencies="605901058" id="1940802807" label="Test_dist" targetDirectory="$(ProjectDir)">

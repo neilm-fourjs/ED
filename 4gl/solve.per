@@ -1,0 +1,36 @@
+
+LAYOUT ( TEXT="Solution" )
+HBOX ( SPLITTER )
+TABLE
+{
+[i ][sys              ][sysd][body      ][bodyd  ][site ][data  ]
+}
+END -- TABLE
+TABLE
+{
+[sd                   ]
+}
+END -- TABLE
+TABLE
+{
+[asd                   ]
+}
+END -- TABLE
+END -- HBOX
+
+ATTRIBUTES
+i = FORMONLY.idx, TITLE="i";
+sys = FORMONLY.sys, TITLE="System";
+sysd = FORMONLY.sysd, TITLE="Dist";
+body = FORMONLY.body, TITLE="Body";
+bodyd = FORMONLY.bodyd, TITLE="Dist";
+site = FORMONLY.site, TITLE="Ruin";
+data = FORMONLY.data, TITLE="Data";
+
+sd = FORMONLY.scandata,TITLE="To Scan";
+asd = FORMONLY.ascandata,TITLE="At Site";
+
+INSTRUCTIONS
+SCREEN RECORD arr ( FORMONLY.idx THRU FORMONLY.data )
+SCREEN RECORD arr2 ( FORMONLY.scandata )
+SCREEN RECORD arr3 ( FORMONLY.ascandata )

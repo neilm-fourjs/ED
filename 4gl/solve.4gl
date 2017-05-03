@@ -251,8 +251,13 @@ FUNCTION proc_ruin( r_id, d_from_gs1, l_min_data, l_max_dist )
 	LET r_cnt = r_cnt + 1
 	LET solution[ solution.getLength() ].ruin[ r_cnt ].r_id = r_id
 	LET solution[ solution.getLength() ].ruin[ r_cnt ].x = r_cnt
+&ifdef genero310
 	CALL l_data_arr.copyTo(solution[ solution.getLength() ].ruin[ r_cnt ].data )
 	CALL l_avail_data_arr.copyTo(solution[ solution.getLength() ].ruin[ r_cnt ].avail_data )
+&else
+	CALL g300_copyArr( l_data_arr, solution[ solution.getLength() ].ruin[ r_cnt ].data )
+	CALL g300_copyArr( l_avail_data_arr, solution[ solution.getLength() ].ruin[ r_cnt ].avail_data )
+&endif
 	LET processed_ruins[processed_ruins.getLength()+1] = r_id
 	LET solution[ solution.getLength() ].ruin[ r_cnt ].r_type = r_rec.ruinTypeName
 	LET solution[ solution.getLength() ].ruin[ r_cnt ].body_name = r_rec.body_name
@@ -286,3 +291,10 @@ FUNCTION njm_got()
 	CALL c.close()
 END FUNCTION
 --------------------------------------------------------------------------------
+FUNCTION g300_copyArr(l_src,l_trg)
+	DEFINE l_src, l_trg DYNAMIC ARRAY OF CHAR(20)
+	DEFINE x SMALLINT
+	FOR x = 1 TO l_src.getLength()
+		LET l_trg[x] = l_src[x]
+	END FOR
+END FUNCTION
