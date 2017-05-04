@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<APPLICATION Parent="defaultwa"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="http://www.4js.com/ns/gas/3.00/cfextwa.xsd">
+  <RESOURCE Id="res.path.myapp" Source="INTERNAL">$(res.deployment.path)</RESOURCE>
+  <EXECUTION>
+    <ENVIRONMENT_VARIABLE Id="FGLRESOURCEPATH">$(res.path.myapp)/etc</ENVIRONMENT_VARIABLE>
+    <ENVIRONMENT_VARIABLE Id="FGLPROFILE">$(res.path.myapp)/etc/fglprofile</ENVIRONMENT_VARIABLE>
+    <ENVIRONMENT_VARIABLE Id="DBDATE">DMY4/</ENVIRONMENT_VARIABLE>
+    <ENVIRONMENT_VARIABLE Id="DBNAME">../db/ed.db</ENVIRONMENT_VARIABLE>
+    <PATH>$(res.path.myapp)/bin310</PATH>
+    <MODULE>solve.42r</MODULE>
+  </EXECUTION>
+</APPLICATION>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Project defaultApplication="18736" gstVersion="30a02" version="3.2">
+<Project defaultApplication="801493264" gstVersion="30a02" version="3.2">
   <Settings>
     <DynamicProperties version="2">
       <DynamicProperty description="Accent color (Android 5.0 and later)" initialValue="#9575CD" isDefaultInherited="false" isHidden="false" label="Accent color" name="gma-accent-color" readOnly="false" type="COLOR"/>
@@ -52,23 +52,26 @@
   </Settings>
   <LanguageList version="1.0"/>
   <PlatformList version="1.0"/>
-  <Group compilerOptions="-Dgenero310" label="Group" language="Genero">
+  <Group compilerOptions="-Dgenero310" environment="value:FGLPROFILE=$(ProjectDir)/etc/fglprofile" label="Group" language="Genero" targetDirectory="$(ProjectDir)/bin310">
     <Library binaryName="Databases" compilerOptions="-DG310" id="1986" label="Databases"/>
-    <Library binaryName="lib" id="605901058" label="lib">
-      <File filePath="calc_dist.4gl"/>
-      <File filePath="db_connect.4gl"/>
+    <Library binaryName="etc" id="-1534526562" label="etc">
+      <File filePath="etc/fglprofile"/>
     </Library>
-    <Application binaryName="ruins" commandLineArguments="redoX" dependencies="605901058" id="801493264" label="ruins" targetDirectory="$(ProjectDir)">
-      <File filePath="ruins.4gl"/>
+    <Library binaryName="lib" id="605901058" label="lib">
+      <File filePath="src/calc_dist.4gl"/>
+      <File filePath="src/db_connect.4gl"/>
+    </Library>
+    <Application binaryName="ruins" commandLineArguments="redoX" dependencies="605901058" id="801493264" label="ruins">
+      <File filePath="src/ruins.4gl"/>
     </Application>
-    <Application binaryName="solve" dependencies="14000,1986,605901058" id="18736" label="solve" targetDirectory="$(ProjectDir)/">
-      <File filePath="solve.4gl"/>
-      <File filePath="solve.per"/>
+    <Application binaryName="solve" dependencies="14000,1986,605901058" id="18736" label="solve">
+      <File filePath="src/solve.4gl"/>
+      <File filePath="src/solve.per"/>
     </Application>
-    <Application binaryName="Test" compilerOptions="" dependencies="605901058" id="36249064" label="Test" targetDirectory="$(ProjectDir)/test">
+    <Application binaryName="Test" dependencies="605901058" id="36249064" label="Test" targetDirectory="$(ProjectDir)/test">
       <File filePath="test/test.4gl"/>
     </Application>
-    <Application binaryName="Test_dist" dependencies="605901058" id="1940802807" label="Test_dist" targetDirectory="$(ProjectDir)">
+    <Application binaryName="Test_dist" dependencies="605901058" id="1940802807" label="Test_dist" targetDirectory="$(ProjectDir)/test">
       <File filePath="test/test_dist.4gl"/>
     </Application>
   </Group>

@@ -4,7 +4,8 @@ IMPORT util
 IMPORT FGL db_connect
 
 MAIN
-	CALL db_connect.db_con()
+
+	CALL db_connect.db_open()
 
 	IF ARG_VAL(1) = "redo" THEN
 		IF fgl_winQuestion("Confirm",
@@ -12,13 +13,11 @@ MAIN
 			"question",0) = "No" THEN
 			EXIT PROGRAM
 		END IF
-		CALL load_systems()
 		CALL load_bodies()
 		CALL load_ruins()
+		CALL load_systems()
 		CALL load_scandata()
 	END IF
-
---	CALL load_systems()
 
 	CALL load_ruinsdata()
 
@@ -28,7 +27,10 @@ FUNCTION load_ruinsdata()
 	DEFINE l_ruin_id INTEGER
 
 	IF ARG_VAL(1) = "redo" OR ARG_VAL(1) = "justdata" THEN
-		DROP TABLE ruins_data
+		TRY
+			DROP TABLE ruins_data
+		CATCH
+		END TRY
 		CREATE TABLE ruins_data (
 			ruin_id INTEGER,
 			ruinTypeName CHAR(5),
@@ -142,7 +144,7 @@ FUNCTION load_scandata()
 	)
 
 	LET c = base.channel.create()	
-	CALL c.openFile("scandata.json","r")
+	CALL c.openFile("../json/scandata.json","r")
 	LET jo = util.JSONObject.parse(c.readLine())
 	CALL c.close()
 
@@ -199,7 +201,7 @@ FUNCTION load_systems()
 
 	LET max_sys = 10
 	LET c = base.channel.create()	
-	CALL c.openFile("stellar.json","r")
+	CALL c.openFile("../json/stellar.json","r")
 	CALL util.JSON.parse( c.readLine(), systems )	
 	CALL c.close()
 
@@ -236,7 +238,7 @@ FUNCTION load_bodies()
 
 	LET max_b = 1
 	LET c = base.channel.create()	
-	CALL c.openFile("bodies.json","r")
+	CALL c.openFile("../json/bodies.json","r")
 	CALL util.JSON.parse( c.readLine(), bodies )	
 	CALL c.close()
 
@@ -289,7 +291,7 @@ FUNCTION load_ruins()
 	)
 
 	LET c = base.channel.create()	
-	CALL c.openFile("systemoverview.json","r")
+	CALL c.openFile("../json/systemoverview.json","r")
 	CALL util.JSON.parse( c.readLine(), systems )	
 	CALL c.close()
 

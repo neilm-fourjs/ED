@@ -39,7 +39,7 @@ MAIN
 	DEFINE d INTEGER
 
 -- connect to the database
-	CALL db_connect.db_con()
+	CALL db_connect.db_open()
 
 -- declare primary cursors
 	DECLARE obe_cur CURSOR FOR SELECT UNIQUE data FROM ruins_data WHERE ruin_id = ? AND data IS NOT NULL ORDER BY data
