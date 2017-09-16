@@ -64,6 +64,10 @@
     <Library binaryName="Databases" compilerOptions="-DG310" id="1986" label="Databases">
       <File filePath="etc/ruins.4db"/>
     </Library>
+    <Application binaryName="dedup" id="-1365874978" label="dedup">
+      <File filePath="src/dedup.4gl"/>
+      <File filePath="src/dedup.per"/>
+    </Application>
     <Library binaryName="etc" id="-1534526562" label="etc">
       <File filePath="etc/fglprofile"/>
     </Library>

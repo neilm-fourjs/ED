@@ -1,5 +1,6 @@
 IMPORT os
 
+PUBLIC DEFINE m_msg STRING
 --------------------------------------------------------------------------------
 FUNCTION db_open()
 	DEFINE l_stat INTEGER
@@ -57,3 +58,14 @@ FUNCTION openDB( l_dbname )
 	RETURN 0,l_msg
 END FUNCTION
 --------------------------------------------------------------------------------
+FUNCTION ui_message(l_err BOOLEAN, l_mess STRING )
+	DISPLAY l_mess
+	IF l_err THEN
+		ERROR l_mess
+	ELSE
+		MESSAGE l_mess
+	END IF
+	LET m_msg = m_msg.append( CURRENT||":"||l_mess||"\n" )
+	DISPLAY m_msg TO msg
+	CALL ui.Interface.refresh()
+END FUNCTION

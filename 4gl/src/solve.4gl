@@ -33,21 +33,25 @@ TYPE t_r_rec RECORD
 		ruinTypeName CHAR(5),
 		coor_long DECIMAL(8,4),
 		coor_lat DECIMAL(8,4),
+		data_cnt SMALLINT,
+		score SMALLINT,
+		ignore SMALLINT,
+		data VARCHAR(100),
 		system_name VARCHAR(60)
 	END RECORD
-DEFINE m_msg STRING
+
 DEFINE m_max_s_distance, m_max_b_distance1, m_max_b_distance2 INTEGER
 DEFINE m_loop_from, m_loop_step SMALLINT
 DEFINE m_njm_got BOOLEAN
+
 MAIN
-	DEFINE l_ruin_id SMALLINT
-	DEFINE r,x SMALLINT
+	DEFINE l_ruin_id, l_data_cnt, r, x SMALLINT
 	DEFINE r_type CHAR(1)
-	DEFINE d INTEGER
+	DEFINE d_gs1 INTEGER
 
 	LET m_njm_got = TRUE
-	LET m_loop_from = 22
-	LET m_loop_step = 2
+	LET m_loop_from = 20
+	LET m_loop_step = 4
 	LET m_max_s_distance = 5000
 	LET m_max_b_distance1 = 800
 	LET m_max_b_distance2 = 100000
@@ -62,27 +66,28 @@ MAIN
 	CALL ui_message(FALSE, "Declaring cursors ..." )
 -- declare primary cursors
 	DECLARE obe_cur CURSOR FOR SELECT UNIQUE data FROM ruins_data WHERE ruin_id = ? AND data IS NOT NULL ORDER BY data
+
 	DECLARE r_cur CURSOR FOR SELECT ruins.*,system_name FROM ruins, ruins_systems
 		WHERE ruin_id = ?
 			AND ruins.system_id = ruins_systems.system_id
+
 	DECLARE r_cur2 CURSOR FOR SELECT ruin_id FROM ruins WHERE ruin_id != ? AND system_id = ? AND body_name = ?
-	DECLARE cur CURSOR FOR 
-		SELECT ruin_id, distance_from_gs1,ruintypename FROM ruins, ruins_systems
-		 WHERE ruin_id < 99990 AND ruins_systems.system_id != 25 
+
+	DECLARE m_cur CURSOR FOR 
+		SELECT ruin_id, distance_from_gs1,ruintypename,data_cnt FROM ruins, ruins_systems
+		 WHERE ruin_id < 99990 AND ruins_systems.distance_from_gs1 < 2000
+			AND ignore = 0
 			AND ruins_systems.system_id = ruins.system_id
-		ORDER BY distance_from_gs1 
+		ORDER BY data_cnt, distance_from_gs1 
 
 	CALL ui_message(FALSE, "Fetching data ..." )
 -- get an array of only ruins with data
-	FOREACH cur INTO l_ruin_id, d, r_type
-		SELECT COUNT(*) INTO r FROM ruins_data WHERE ruin_id = l_ruin_id AND data IS NOT NULL
-		IF r > 0 THEN
-			LET ruins_with_data[ ruins_with_data.getLength() + 1 ].r_id = l_ruin_id
-			LET ruins_with_data[ ruins_with_data.getLength() ].data_cnt = r
-			LET ruins_with_data[ ruins_with_data.getLength() ].r_type = r_type
-			IF d IS NULL THEN LET d = 0 END IF
-			LET ruins_with_data[ ruins_with_data.getLength() ].distance_from_gs1 = d
-		END IF
+	FOREACH m_cur INTO l_ruin_id, d_gs1, r_type, l_data_cnt
+		LET ruins_with_data[ ruins_with_data.getLength() + 1 ].r_id = l_ruin_id
+		LET ruins_with_data[ ruins_with_data.getLength() ].data_cnt = l_data_cnt
+		LET ruins_with_data[ ruins_with_data.getLength() ].r_type = r_type
+		IF d_gs1 IS NULL THEN LET d_gs1 = 0 END IF
+		LET ruins_with_data[ ruins_with_data.getLength() ].distance_from_gs1 = d_gs1
 	END FOREACH
 	CALL ruins_with_data.sort('data_cnt',TRUE)
 	DISPLAY ruins_with_data.getLength()," Ruins sites with data."
@@ -108,24 +113,11 @@ MAIN
 				CALL find_data(r,m_max_b_distance2,"?")
 			END FOR
 		END IF
-		{FOR x = 25 TO 1 STEP -4
-			CALL ui_message(FALSE, SFMT( "Finding solution for %1 ...", x) )
-			CALL find_data(x,m_max_b_distance1,"A")
-			CALL find_data(x,m_max_b_distance2,"A")
-		END FOR
-		FOR x = 25 TO 1 STEP -4
-			CALL ui_message(FALSE, SFMT( "Finding solution for %1 ...", x) )
-			CALL find_data(x,m_max_b_distance1,"B")
-			CALL find_data(x,m_max_b_distance2,"B")
-		END FOR
-		FOR x = 25 TO 1 STEP -4
-			CALL ui_message(FALSE, SFMT( "Finding solution for %1 ...", x) )
-			CALL find_data(x,m_max_b_distance1,"G")
-			CALL find_data(x,m_max_b_distance2,"G")
-		END FOR}
+
 		--CALL dump_results()
 
 		CALL disp_results()
+		LET db_connect.m_msg = ""
 	END WHILE
 	DISPLAY "Finished"
 END MAIN
@@ -294,7 +286,7 @@ FUNCTION proc_ruin( r_id, d_from_gs1, l_min_data, l_max_b_dist )
 		LET l_data_arr[ l_data_arr.getLength() + 1 ] = l_data
 	END FOREACH
 
--- if we got more new data than the min then store the ruin add to solution
+-- if we got more new data than the min then store the ruin as in solution
 	IF l_data_arr.getLength() < l_min_data THEN RETURN l_data_arr.getLength() END IF
 	DISPLAY "Processing Ruins:",r_id, " Distance from GS1=",d_from_gs1, " New Data:",l_data_arr.getLength()
 
@@ -345,30 +337,22 @@ END FUNCTION
 -- load my got data - so only find sites for my needed data.
 FUNCTION njm_got()
 	DEFINE c base.Channel
-	DEFINE l_file STRING
+	DEFINE l_file, l_line STRING
 	LET l_file = "../etc/njm_got.txt"
 	IF os.path.exists( l_file ) THEN
 		CALL ui_message(FALSE, SFMT("Processing %1",l_file) )
 		LET c = base.Channel.create()
 		CALL c.openFile( l_file,"r")
 		WHILE  NOT c.isEof()
-			LET solution[ 1 ].data[  solution[ 1 ].data.getLength() + 1 ] = c.readLine()
+			LET l_line = c.readLine()
+			IF l_line.getLength() > 1 THEN
+				LET solution[ 1 ].data[  solution[ 1 ].data.getLength() + 1 ] = l_line
+			END IF
 		END WHILE
 		CALL c.close()
+		CALL ui_message(FALSE, SFMT("Got %1 found from %2",solution[ 1 ].data.getLength(),l_file) )
 	ELSE
 		LET m_njm_got = FALSE
 		CALL ui_message(FALSE, SFMT("Not found %1",l_file) )
 	END IF
-END FUNCTION
---------------------------------------------------------------------------------
-FUNCTION ui_message(l_err BOOLEAN, l_mess STRING )
-	DISPLAY l_mess
-	IF l_err THEN
-		ERROR l_mess
-	ELSE
-		MESSAGE l_mess
-	END IF
-	LET m_msg = m_msg.append( CURRENT||":"||l_mess||"\n" )
-	DISPLAY m_msg TO msg
-	CALL ui.Interface.refresh()
 END FUNCTION

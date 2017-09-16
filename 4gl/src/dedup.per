@@ -1,0 +1,25 @@
+ACTION DEFAULTS
+	ACTION quit ( TEXT="Quit", IMAGE="quit" )
+	ACTION redo ( TEXT="Re-Do", IMAGE="refresh" )
+END -- AD	
+
+TOOLBAR
+	ITEM quit
+	ITEM redo
+END -- TB
+
+LAYOUT ( TEXT="Dedup", STYLE="main2" )
+GRID
+{
+[msg                                                 ]
+[                                                    ]
+[                                                    ]
+[                                                    ]
+[                                                    ]
+[                                                    ]
+}
+END -- GRID
+END -- LAYOUT
+
+ATTRIBUTES
+TEXTEDIT msg = FORMONLY.msg, STRETCH=BOTH;

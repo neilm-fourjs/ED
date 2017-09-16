@@ -126,7 +126,8 @@ FUNCTION load_scandata()
 		isVerified SMALLINT,
 		data CHAR(20),
 		item_1 CHAR(10),
-		item_2 CHAR(10)
+		item_2 CHAR(10),
+		score SMALLINT
 	END RECORD
 
 	TRY
@@ -140,7 +141,8 @@ FUNCTION load_scandata()
 		isVerified SMALLINT,
 		data CHAR(20),
 		item_1 CHAR(10),	
-		item_2 CHAR(10)
+		item_2 CHAR(10),
+		score SMALLINT
 	)
 
 	LET c = base.channel.create()	
@@ -165,6 +167,7 @@ FUNCTION load_scandata()
 					LET scandata[ scandata.getLength() ].item_1 = ja.get(1)
 					LET scandata[ scandata.getLength() ].item_2 = ja.get(2)
 				END IF
+				LET scandata[ scandata.getLength() ].score = 0
 				DISPLAY scandata[ scandata.getLength() ].ruinTypeName,":",scandata[ scandata.getLength() ].groupName,scandata[ scandata.getLength() ].obelisk_no USING "<<","=",scandata[ scandata.getLength() ].data," Item1:",scandata[ scandata.getLength() ].item_1, " Item2:",scandata[ scandata.getLength() ].item_2
 				INSERT INTO scan_data VALUES( scandata[ scandata.getLength() ].* )
 			END FOR
@@ -273,7 +276,11 @@ FUNCTION load_ruins()
 		ruin_id INTEGER,
 		ruinTypeName CHAR(5),
 		coor_long DECIMAL(8,4),
-		coor_lat DECIMAL(8,4)
+		coor_lat DECIMAL(8,4),
+		data_cnt SMALLINT,
+		score SMALLINT,
+		ignore SMALLINT,
+		data VARCHAR(100)
 	END RECORD
 
 	TRY
@@ -287,7 +294,11 @@ FUNCTION load_ruins()
 		ruin_id INTEGER,
 		ruinTypeName CHAR(5),
 		coor_long DECIMAL(8,4),
-		coor_lat DECIMAL(8,4)
+		coor_lat DECIMAL(8,4),
+		data_cnt SMALLINT,
+		score SMALLINT,
+		ignore SMALLINT,
+		data VARCHAR(100)
 	)
 
 	LET c = base.channel.create()	
@@ -304,6 +315,10 @@ FUNCTION load_ruins()
 			LET rs.coor_long = systems[x].ruins[y].coordinates[1]
 			LET rs.coor_lat = systems[x].ruins[y].coordinates[2]
 			LET rs.bodyDistance = 0
+			LET rs.score = 0
+			LET rs.data_cnt = 0
+			LET rs.ignore = FALSE
+			LET rs.data = NULL
 			SELECT distance INTO rs.bodyDistance FROM ruins_bodies
 			 WHERE ruins_bodies.system_id = rs.system_id
 				AND ruins_bodies.body_name = rs.body_name
