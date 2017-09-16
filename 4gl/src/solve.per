@@ -1,11 +1,23 @@
 
-LAYOUT ( TEXT="Solution" )
+ACTION DEFAULTS
+	ACTION quit ( TEXT="Quit", IMAGE="quit" )
+	ACTION redo ( TEXT="Re-Do", IMAGE="refresh" )
+END -- AD	
+
+TOOLBAR
+	ITEM quit
+	ITEM redo
+END -- TB
+
+LAYOUT ( TEXT="Solution", STYLE="main2" )
 HBOX ( SPLITTER )
 TABLE
 {
 [i ][sys              ][sysd][body      ][bodyd  ][site ][data  ]
 }
 END -- TABLE
+VBOX ( SPLITTER )
+HBOX
 TABLE
 {
 [sd                   ]
@@ -16,6 +28,21 @@ TABLE
 [asd                   ]
 }
 END -- TABLE
+END -- HBOX
+
+GRID
+{
+["njm_got:":nn:"Loop From:":lf  :"Loop Step:":ls  ]
+["Max System Dist:":msd    :"Max Body Dist 1:":mbd1   :"Max Body Dist 2:":mbd2   ]
+[msg                                                                             ]
+[                                                                                ]
+[                                                                                ]
+[                                                                                ]
+[                                                                                ]
+[                                                                                ]
+}
+END -- GRID
+END -- VBOX
 END -- HBOX
 
 ATTRIBUTES
@@ -29,6 +56,16 @@ data = FORMONLY.data, TITLE="Data";
 
 sd = FORMONLY.scandata,TITLE="To Scan";
 asd = FORMONLY.ascandata,TITLE="At Site";
+
+CHECKBOX nn = FORMONLY.m_njm_got, VALUECHECKED=1, VALUEUNCHECKED=0, NOT NULL;
+SPINEDIT lf = FORMONLY.m_loop_from, VALUEMIN=1, VALUEMAX=30,STEP=1, NOT NULL;
+SPINEDIT ls = FORMONLY.m_loop_step, VALUEMIN=1, VALUEMAX=10,STEP=1, NOT NULL;
+
+SPINEDIT msd = FORMONLY.m_max_s_distance, VALUEMIN=200, VALUEMAX=6000,STEP=25, NOT NULL;
+SPINEDIT mbd1 = FORMONLY.m_max_b_distance1, VALUEMIN=200, VALUEMAX=10000,STEP=25, NOT NULL;
+SPINEDIT mbd2 = FORMONLY.m_max_b_distance2, VALUEMIN=1000, VALUEMAX=100000,STEP=25, NOT NULL;
+
+TEXTEDIT msg = FORMONLY.msg, STRETCH=BOTH;
 
 INSTRUCTIONS
 SCREEN RECORD arr ( FORMONLY.idx THRU FORMONLY.data )

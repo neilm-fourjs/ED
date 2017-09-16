@@ -4,6 +4,7 @@
 # Genero Studio generated  project files
 *.4pwvs
 *.4pwdb
+*.4pwcfg
 
 # Genero Studio generated database management files
 *_dbx*.*

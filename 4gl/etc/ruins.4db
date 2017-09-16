@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Schema id="{2f810d0f-5ee0-4dc8-b00f-c69560db092e}" version="4.0">
+  <ExtractionSettings last="SQLite">
+    <ExtractionOptions casens="LowerCase" cvmeth="AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" ignerr="true" systab="false" type="SQLite"/>
+  </ExtractionSettings>
+  <Table name="ruins" isView="false" status="U">
+    <Column fglLength="4" fglType="2" name="system_id" notNull="false" order="1" status="U"/>
+    <Column fglLength="10" fglType="201" name="body_name" notNull="false" order="2" status="U"/>
+    <Column fglLength="4" fglType="2" name="bodydistance" notNull="false" order="3" status="U"/>
+    <Column fglLength="4" fglType="2" name="ruin_id" notNull="false" order="4" status="U"/>
+    <Column fglLength="5" fglType="0" name="ruintypename" notNull="false" order="5" status="U"/>
+    <Column fglLength="2052" fglType="5" name="coor_long" notNull="false" order="6" status="U"/>
+    <Column fglLength="2052" fglType="5" name="coor_lat" notNull="false" order="7" status="U"/>
+  </Table>
+  <Table name="ruins_bodies" isView="false" status="U">
+    <Column fglLength="4" fglType="2" name="body_id" notNull="false" order="1" status="U"/>
+    <Column fglLength="20" fglType="201" name="body_name" notNull="false" order="2" status="U"/>
+    <Column fglLength="4" fglType="2" name="system_id" notNull="false" order="3" status="U"/>
+    <Column fglLength="4" fglType="2" name="distance" notNull="false" order="4" status="U"/>
+  </Table>
+  <Table name="ruins_data" isView="false" status="U">
+    <Column fglLength="4" fglType="2" name="ruin_id" notNull="false" order="1" status="U"/>
+    <Column fglLength="5" fglType="0" name="ruintypename" notNull="false" order="2" status="U"/>
+    <Column fglLength="1" fglType="0" name="groupname" notNull="false" order="3" status="U"/>
+    <Column fglLength="2" fglType="1" name="obelisk_no" notNull="false" order="4" status="U"/>
+    <Column fglLength="2" fglType="1" name="active" notNull="false" order="5" status="U"/>
+    <Column fglLength="20" fglType="0" name="data" notNull="false" order="6" status="U"/>
+  </Table>
+  <Table name="ruins_systems" isView="false" status="U">
+    <Column fglLength="4" fglType="2" name="system_id" notNull="false" order="1" status="U"/>
+    <Column fglLength="40" fglType="201" name="system_name" notNull="false" order="2" status="U"/>
+    <Column fglLength="4" fglType="2" name="distance_from_gs1" notNull="false" order="3" status="U"/>
+    <Column fglLength="2308" fglType="5" name="edsmcoordx" notNull="false" order="4" status="U"/>
+    <Column fglLength="2308" fglType="5" name="edsmcoordy" notNull="false" order="5" status="U"/>
+    <Column fglLength="2308" fglType="5" name="edsmcoordz" notNull="false" order="6" status="U"/>
+  </Table>
+  <Table name="scan_data" isView="false" status="U">
+    <Column fglLength="5" fglType="0" name="ruintypename" notNull="false" order="1" status="U"/>
+    <Column fglLength="1" fglType="0" name="groupname" notNull="false" order="2" status="U"/>
+    <Column fglLength="2" fglType="1" name="obelisk_no" notNull="false" order="3" status="U"/>
+    <Column fglLength="2" fglType="1" name="isverified" notNull="false" order="4" status="U"/>
+    <Column fglLength="20" fglType="0" name="data" notNull="false" order="5" status="U"/>
+    <Column fglLength="10" fglType="0" name="item_1" notNull="false" order="6" status="U"/>
+    <Column fglLength="10" fglType="0" name="item_2" notNull="false" order="7" status="U"/>
+  </Table>
+  <Table name="tab1" isView="false" status="U">
+    <Column fglLength="4" fglType="6" name="fld1" notNull="false" order="1" status="U"/>
+    <Column fglLength="20" fglType="0" name="fld2" notNull="false" order="2" status="U"/>
+    <Index indexColumns="fld1" indexConstraint="primaryKey" name="primary_key_tab1" status="U"/>
+  </Table>
+</Schema>

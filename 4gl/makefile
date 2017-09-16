@@ -38,9 +38,9 @@ gar: $(GARFILE)
 
 $(GARFILE): packages bin$(GENVER)/solve.42r
 	$(info Building Genero Archive ...)
-	@cp gas$(GENVER)/MANIFEST .
-	@zip -qr $(GARFILE) MANIFEST gas$(GENVER)/*.xcf bin$(GENVER)/* etc/*.4?? db/*.db etc/fglprofile
-	@rm MANIFEST
+	@cp gas$(GENVER)/solve.xcf .
+	@zip -qr $(GARFILE) solve.xcf MANIFEST bin$(GENVER)/* etc/*.4?? db/*.db etc/fglprofile etc/njm_got.txt
+	@rm -f solve.xcf
 
 # ----------------------
 # GAS Deploy 3.10
